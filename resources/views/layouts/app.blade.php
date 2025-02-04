@@ -2,21 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>{{ config('app.name', 'Qwen Chat App') }}</title>
 
     <!-- Tailwind CSS -->
     <link href="{{ asset('vendor/fontawesome/css/all.min.css') }}" rel="stylesheet">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Alpine.js (opcional) -->
-    {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script>
-    {{-- <script defer src="{{ asset('vendor/alpine/persist.min.js') }}"></script> --}}
 
     <!-- Livewire Styles -->
     @livewireStyles
+
 </head>
 <body class="bg-gray-100 font-sans antialiased">
     
@@ -48,11 +51,9 @@
     <!-- Livewire Scripts -->
     @livewireScripts
 
-    @yield('customScript')
+    <script src="{{ asset('js/app.js') }}"></script>
 
-    <!-- Scripts Personalizados (opcional) -->
-    <script>
-        // Código JavaScript personalizado, si es necesario
-    </script>
+    @yield('customScript')
+    
 </body>
 </html>

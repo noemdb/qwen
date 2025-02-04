@@ -26,6 +26,11 @@ Route::get('/chat', function () {
 // Route::get('/chat', ChatComponent::class)->name('chat');
 
 
+Route::get('/home', function () {
+    return view('home');
+})->name('home');
+
+
 // Route::middleware(['web'])->group(function () {
 //     Route::get('/chat', function () {
 //         return view('chat');

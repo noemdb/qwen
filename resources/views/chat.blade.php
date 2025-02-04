@@ -14,7 +14,7 @@
 
             </div>
 
-            <div class="grow">
+            <div class="grow px-1">
 
                 <livewire:chat-component />
 

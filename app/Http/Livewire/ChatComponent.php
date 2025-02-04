@@ -15,7 +15,7 @@ class ChatComponent extends Component
     public $contents = [];
     public $newMessage = null;
     public $responseMessage;
-    public $limit = 3;
+    public $limit = 10;
     public $request = 0;
     public $charLimit = 100;
     public $status = true;
