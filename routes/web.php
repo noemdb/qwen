@@ -29,5 +29,5 @@ Route::get('/', function () {
 Route::middleware(['web'])->group(function () {
     Route::get('/chat', function () {
         return view('chat');
-    });
+    })->name('chat');
 });
