@@ -22,10 +22,15 @@ class ChatComponent extends Component
     protected QwenService $qwenService;
     protected $usageStats,$conversationId;
     
+    
     public $pdfFile;
     protected $rules = [
         'pdfFile' => 'required|file|mimes:pdf|max:2048', // Máximo 2MB
     ];
+    public function updatedPdfFile()
+    {
+        $this->validate();
+    }
 
     public function mount()
     {

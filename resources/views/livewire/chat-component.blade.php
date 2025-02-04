@@ -1,26 +1,46 @@
  <div>
 
-    <div class="flex flex-col md:flex-row gap-4">
+    <div class="w-full h-full flex flex-col bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="bg-blue-500 p-2 text-white text-center font-bold">
+            Conversación
+        </div>
+
+        <div class="flex-grow overflow-y-auto">
+            @include('livewire.partials.messages')
+        </div>
+
+        <div class="mt-auto">
+            @include('livewire.partials.input')
+        </div>
+    </div>
+
+    {{-- <div class="flex flex-col md:flex-row gap-4 h-full">
         <!-- Columna 1: Ocupa menos espacio -->
-        <div class="flex-1 bg-blue-100 p-1 rounded text-gray-600 text-sm">
+        <div class="flex-none md:w-1/3 bg-blue-100 p-1 rounded text-gray-600 text-sm">
             @include('livewire.partials.info')
         </div>
       
-        <!-- Columna 2: Ocupa más espacio -->
-        <div class="flex-2 p-2">
-            <div class="w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-    
+        <!-- Columna 2: Ocupa más espacio y todo el alto disponible -->
+        <div class="flex-grow flex flex-col h-full">
+            <div class="w-full h-full flex flex-col bg-white shadow-lg rounded-lg overflow-hidden">
                 <div class="bg-blue-500 p-2 text-white text-center font-bold">
                     Conversación
                 </div>
         
-                @include('livewire.partials.messages')
+                <div class="flex-grow overflow-y-auto">
+                    @include('livewire.partials.messages')
+                </div>
         
-                @include('livewire.partials.input')                
-        
+                <div class="mt-auto">
+                    @include('livewire.partials.input')
+                </div>
             </div>
         </div>
-      </div>
+    </div>
+
+    <div class="">
+        <div>@include('livewire.partials.prompts')</div>        
+    </div>           --}}
 
     @section('customScript')
         @parent
@@ -42,6 +62,19 @@
                 });
             });
         </script>
+
+        <script>
+            function validateFile() {
+                const input = document.getElementById('pdfFile');
+                const file = input.files[0];
+
+                if (file && file.size > 2 * 1024 * 1024) { // 10 MB
+                    alert('El archivo es demasiado grande. Máximo permitido: 2 MB');
+                    input.value = ''; // Limpia el archivo seleccionado
+                }
+            }
+        </script>
+
     @endsection
 
 </div>

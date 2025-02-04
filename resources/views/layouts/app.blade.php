@@ -13,18 +13,19 @@
     <!-- Alpine.js (opcional) -->
     {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script>
+    {{-- <script defer src="{{ asset('vendor/alpine/persist.min.js') }}"></script> --}}
 
     <!-- Livewire Styles -->
     @livewireStyles
 </head>
 <body class="bg-gray-100 font-sans antialiased">
-    <!-- Contenedor Principal -->
+    
     <div class="min-h-screen flex flex-col">
         <!-- Encabezado -->
         <header class="bg-gray-800 text-white shadow-md">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <h1 class="text-xl font-bold">
-                    <a href="{{ route('welcome') }}" class="">QChat App</a>                    
+                    <a href="{{ route('welcome') }}" class="">QChat App. CMSF</a>                    
 
                 </h1>
                 <nav>
@@ -34,13 +35,13 @@
         </header>
 
         <!-- Contenido Principal -->
-        <main class="flex-grow container mx-auto px-2 py-2">
+        <main class="flex-grow w-full">
             @yield('main') <!-- Aquí se inyectará el contenido de las vistas secundarias -->
         </main>
 
         <!-- Pie de Página -->
         <footer class="bg-gray-800 text-white text-center py-4">
-            <p>&copy; {{ date('Y') }} QChat App. Contraloría Municipal de San Felipe.</p>
+            <p>&copy; {{ date('Y') }} QChat App. Contraloría Municipal de San Felipe. [@noemdb]</p>
         </footer>
     </div>
 
