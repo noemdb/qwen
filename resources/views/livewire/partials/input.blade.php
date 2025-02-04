@@ -71,43 +71,22 @@
             </div>
         @endif
 
-        <!-- Notificación -->
-        {{-- <div 
-        x-show="showNotification" 
-        x-transition 
-        class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-        role="alert"
-        >
-            <strong class="font-bold">Error: </strong>
-            <span class="block sm:inline">El archivo es demasiado grande. Máximo permitido: 2 MB.</span>
-            <button 
-                @click="showNotification = false" 
-                class="absolute top-0 bottom-0 right-0 px-4 py-3 text-red-500 focus:outline-none">
-                &times;
-            </button>
-        </div> --}}
-
     </form>
 
     @section('customScript')
     @parent
 
-    {{-- <script>
-        function fileUploadHandler() {
-          return {
-            showNotification: false,
-            validateFile(event) {
-              const file = event.target.files[0];
-              if (file && file.size > 2 * 1024 * 1024) { // 10 MB
-                this.showNotification = true;
-                event.target.value = ''; // Limpia el archivo seleccionado
-              } else {
-                this.showNotification = false; // Oculta la notificación si todo está bien
-              }
+    <script>
+        function validateFile() {
+            const input = document.getElementById('pdfFile');
+            const file = input.files[0];
+
+            if (file && file.size > 10 * 1024 * 1024) { // 10 MB
+                alert('El archivo es demasiado grande. Máximo permitido: 2 MB');
+                input.value = ''; // Limpia el archivo seleccionado
             }
-          };
         }
-    </script> --}}
+    </script>
 
     @endsection
 

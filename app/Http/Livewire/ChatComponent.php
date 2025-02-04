@@ -25,7 +25,7 @@ class ChatComponent extends Component
     
     public $pdfFile;
     protected $rules = [
-        'pdfFile' => 'required|file|mimes:pdf|max:2048', // Máximo 2MB
+        'pdfFile' => 'required|file|mimes:pdf|max:10240', // Máximo 10MB
     ];
     public function updatedPdfFile()
     {

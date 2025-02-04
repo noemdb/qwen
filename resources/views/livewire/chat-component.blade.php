@@ -63,18 +63,6 @@
             });
         </script>
 
-        <script>
-            function validateFile() {
-                const input = document.getElementById('pdfFile');
-                const file = input.files[0];
-
-                if (file && file.size > 2 * 1024 * 1024) { // 10 MB
-                    alert('El archivo es demasiado grande. Máximo permitido: 2 MB');
-                    input.value = ''; // Limpia el archivo seleccionado
-                }
-            }
-        </script>
-
     @endsection
 
 </div>
