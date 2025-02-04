@@ -19,8 +19,15 @@ Route::get('/', function () {
     return view('chat');
 })->name('welcome');
 
-Route::get('/chat', function () {
-    return view('chat');
-})->name('chat');
+// Route::get('/chat', function () {
+//     return view('chat');
+// })->name('chat');
 
 // Route::get('/chat', ChatComponent::class)->name('chat');
+
+
+Route::middleware(['web'])->group(function () {
+    Route::get('/chat', function () {
+        return view('chat');
+    });
+});
