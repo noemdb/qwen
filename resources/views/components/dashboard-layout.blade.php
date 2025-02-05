@@ -34,7 +34,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <h2 class="text-xl font-semibold text-gray-100"> <a href="{{route('welcome')}}">QChat App CMSF v1.0</a></h2>
+                <h2 class="text-xl font-semibold text-gray-100">
+                    <a href="{{route('welcome')}}">                        
+                        QChat App CMSF v1.0
+                        <i class="fa-regular fa-comment-dots p-1 m-1"></i>
+                    </a>
+                </h2>
             </header>
 
             <!-- Page Content -->
