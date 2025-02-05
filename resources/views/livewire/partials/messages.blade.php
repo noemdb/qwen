@@ -1,4 +1,4 @@
-<div class="p-2 h-96 overflow-y-auto" id="chat-box">
+<div class="p-2 h-96 overflow-y-auto" id="chat-box" wire:loading.class="opacity-30" >
     <div class="space-y-4" id="main-text">
         @foreach ($messages as $index => $message)
             <div class="{{ $message['user'] === 'user' ? 'text-right' : 'text-left' }}" id="message-{{$index}}">

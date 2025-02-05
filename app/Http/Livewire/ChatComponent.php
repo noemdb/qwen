@@ -45,7 +45,7 @@ class ChatComponent extends Component
             'La información debe ser clara, precisa y, cuando sea necesario, organizada en formatos que faciliten la lectura, como viñetas o encabezados.'.
             'Si la normativa está desactualizada o presenta ambigüedades, proporciona una advertencia o aclaración.'.
             'Da mayor relevancia a las leyes nacionales sobre resoluciones locales.'.
-            'Responde de forma breve y concisa.'.            
+            'Responde de forma breve y concisa. Siempre señala la fecha de las fuentes que consultes para generar tu respuestas'.            
             'Siempre responde enmarcado en este contexto, sí existe una pregunta fuera de el, siempre responderás que no tienes competencias para responder adecuadamente.'            
             ],
         ];

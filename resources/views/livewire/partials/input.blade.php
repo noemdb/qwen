@@ -1,6 +1,6 @@
 <div class="p-4 border-t border-green-300">
 
-    <form wire:submit.prevent="sendMessage" class="w-full">
+    <form wire:submit.prevent="sendMessage" class="w-full" wire:loading.class="opacity-50 cursor-not-allowed" >
     
         @if ($status)
             <!-- Formulario de Mensajes -->
