@@ -14,17 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     // return view('welcome');
+//     return view('welcome');
+// })->name('welcome');
+
 Route::get('/', function () {
-    // return view('welcome');
-    return view('chat');
-})->name('welcome');
+    return view('dashboard');
+})->name('dashboard');
 
-Route::get('/chat', function () {
-    return view('chat');
-})->name('chat');
-
-// Route::get('/chat', ChatComponent::class)->name('chat');
-
+// Route::get('/chat', function () {
+//     return view('chat');
+// })->name('chat');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -40,8 +41,4 @@ Route::get('/about', function () {
     return view('partials.about');
 })->name('about');
 
-// Route::middleware(['web'])->group(function () {
-//     Route::get('/chat', function () {
-//         return view('chat');
-//     })->name('chat');
-// });
+
