@@ -14,9 +14,6 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <!-- Alpine.js (opcional) -->
-    <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script>
-
     <!-- Livewire Styles -->
     @livewireStyles
 
@@ -48,10 +45,13 @@
         </footer>
     </div>
 
-    <!-- Livewire Scripts -->
-    @livewireScripts
-
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Alpine.js (opcional) -->
+    <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script>
+
+    <!-- Livewire Scripts -->
+    @livewireScripts    
 
     @yield('customScript')
     

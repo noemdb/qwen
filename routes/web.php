@@ -26,10 +26,19 @@ Route::get('/chat', function () {
 // Route::get('/chat', ChatComponent::class)->name('chat');
 
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
+
+Route::get('/prompts', function () {
+    return view('partials.prompts');
+})->name('prompts');
+
+
+Route::get('/about', function () {
+    return view('partials.about');
+})->name('about');
 
 // Route::middleware(['web'])->group(function () {
 //     Route::get('/chat', function () {
