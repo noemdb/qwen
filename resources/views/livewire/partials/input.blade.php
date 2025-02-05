@@ -8,6 +8,7 @@
                 <div id="controls" class="w-full flex items-center space-x-2">
                     <!-- Campo de Entrada -->
                     <textarea 
+                        id="dynamic-textarea"
                         wire:model.defer="newMessage" 
                         wire:loading.attr="disabled" 
                         wire:keydown.enter="sendMessage"
@@ -86,6 +87,26 @@
                 input.value = ''; // Limpia el archivo seleccionado
             }
         }
+    </script>
+
+    <script>
+        // Función para ajustar dinámicamente el tamaño del textarea
+        document.addEventListener('DOMContentLoaded', function () {
+            const textarea = document.getElementById('dynamic-textarea');
+
+            if (textarea) {
+                textarea.addEventListener('input', function () {
+                    // Restablecer la altura para calcular correctamente
+                    this.style.height = 'auto';
+
+                    // Establecer la nueva altura basada en el contenido
+                    this.style.height = this.scrollHeight + 'px';
+                });
+
+                // Inicializar el tamaño al cargar la página
+                textarea.style.height = textarea.scrollHeight + 'px';
+            }
+        });
     </script>
 
     @endsection

@@ -34,7 +34,7 @@ class ChatComponent extends Component
 
     public function mount()
     {
-        $this->messages[] = ['user' => 'qwen', 'text' => "Esta aplicación está conectada a un modelo de inteligencia artificial y responderá a tus consultas con la mayor precisión posible."];
+        $this->messages[] = ['user' => 'qwen', 'text' => "Esta aplicación está conectada a un modelo de inteligencia artificial entrenada con intrumentos públicos de la legislación venezolana, responderá a tus consultas con la mayor precisión posible."];
         $this->contents = [
             ["role" => "system", "content" => 
             'Eres un asistente experto en auditoría de obras públicas en el marco jurídico de la República Bolivariana de Venezuela.'.

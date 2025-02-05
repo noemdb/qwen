@@ -1,7 +1,7 @@
  <div>
 
     <div class="w-full h-full flex flex-col bg-white rounded-lg overflow-hidden">
-        <div class="bg-blue-500 p-2 text-white text-center font-bold">
+        <div class="bg-indigo-800 p-2 text-white text-center font-bold">
             Conversación
         </div>
 

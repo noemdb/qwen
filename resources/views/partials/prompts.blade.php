@@ -2,11 +2,11 @@
 
     <div class="bg-white shadow rounded-lg">
 
-        <div class="flex flex-col md:flex-row gap-4 p-1">
+        <div class="flex flex-col md:flex-row gap-4">
 
             <!-- Columna más estrecha -->
-            <div class="w-full md:w-1/3 bg-gray-200 p-1 rounded-lg shadow-md">
-                <div class="p-1 w-full">
+            <div class="w-full md:w-1/4 bg-gray-200 rounded-lg shadow-md">
+                <div class="w-full">
                     <!-- Contenedor Principal -->
                     <div class=" mx-1 bg-white rounded-lg shadow-md overflow-hidden">
                         <!-- Encabezado -->
