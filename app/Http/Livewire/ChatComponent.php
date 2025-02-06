@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire; ///home/nuser/code/qwen-chat/app/Http/Livewire/ChatComponent.php
 
+use App\Models\app\Interaction;
 use Livewire\Component;
 use App\Services\QwenService;
 use Illuminate\Support\Facades\Storage;
@@ -99,15 +100,23 @@ class ChatComponent extends Component
             if (isset($response['error'])) {
                 $this->responseMessage = "Ocurrió algo inesperado, lo síento...";
             } else {
-                $response_text = $response['choices'][0]['message']['content'] ?? 'Respuesta no encontrada.'; //dd($this->responseMessage);
-                $this->responseMessage = $this->formatToHtml($response_text); //dd($this->responseMessage);
-                $this->usageStats = $response['usage'] ?? []; //dd($this->usageStats);
-                $this->conversationId = $response['id'] ?? ''; //dd($this->conversationId);            
-                $this->contents[] = ['role' => 'assistant', 'content' => $response_text]; //dd($this->contents);            
-            }
+                $response_text = $response['choices'][0]['message']['content'] ?? 'Respuesta no encontrada.';
+                $this->responseMessage = $this->formatToHtml($response_text);
+                $this->usageStats = $response['usage'] ?? [];
+                $this->conversationId = $response['id'] ?? '';
+                $this->contents[] = ['role' => 'assistant', 'content' => $response_text];
+            }  
+
+            $interaction = 
+            Interaction::create([
+                'user_id' => null,
+                'prompt' => $this->newMessage,
+                'response' => $this->responseMessage,
+            ]); //dd($interaction);
+
             $this->messages[] = ['user' => 'user', 'text' => $this->newMessage];
             $this->messages[] = ['user' => 'qwen', 'text' => $this->responseMessage]; //dd($this->messages);
-            $this->newMessage = null; //dd($this->newMessage);
+            $this->newMessage = null;
             $this->status = ($this->request >= $this->limit) ? false : true;
             
         } else {

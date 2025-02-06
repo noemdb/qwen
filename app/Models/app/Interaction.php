@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Prompts extends Model
+class Interaction extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class Prompts extends Model
      *
      * @var string
      */
-    protected $table = 'prompts';
+    protected $table = 'interactions';
 
     /**
      * Los atributos que son asignables masivamente.
