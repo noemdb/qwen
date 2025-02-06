@@ -107,12 +107,12 @@ class ChatComponent extends Component
                 $this->contents[] = ['role' => 'assistant', 'content' => $response_text];
             }  
 
-            $interaction = 
-            Interaction::create([
-                'user_id' => null,
-                'prompt' => $this->newMessage,
-                'response' => $this->responseMessage,
-            ]); //dd($interaction);
+            // $interaction = 
+            // Interaction::create([
+            //     'user_id' => null,
+            //     'prompt' => $this->newMessage,
+            //     'response' => $this->responseMessage,
+            // ]); //dd($interaction);
 
             $this->messages[] = ['user' => 'user', 'text' => $this->newMessage];
             $this->messages[] = ['user' => 'qwen', 'text' => $this->responseMessage]; //dd($this->messages);
