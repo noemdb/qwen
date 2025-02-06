@@ -1,4 +1,5 @@
 /node_modules
+/database/database.sqlite
 /public/hot
 /public/js/app.js
 /public/js/app.css

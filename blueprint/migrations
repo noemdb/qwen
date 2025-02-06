@@ -1,0 +1,2 @@
+
+php artisan make:model 'app\Prompts' -m
