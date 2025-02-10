@@ -16,28 +16,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     // return view('welcome');
-//     return view('welcome');
-// })->name('welcome');
+Route::get('/list', function () {
+    // return view('welcome');
+    return view('list');
+})->name('list');
 
 Route::get('/', function () {
     return view('dashboard');
 })->name('welcome');
 
-// Route::get('/chat', function () {
-//     return view('chat');
-// })->name('chat');
+Route::get('/chat', function () {
+    return view('chat');
+})->name('chat');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-
 Route::get('/prompts', function () {
     return view('partials.prompts');
 })->name('prompts');
-
 
 Route::get('/about', function () {
     return view('partials.about');
@@ -52,7 +50,4 @@ Route::get('/db', function () {
         ]); dd('test: ',$interaction);
 })->name('db');
 
-// Route::get('/test', function () {
-//     dd('test');
-//     // return view('welcome');
-// })->name('welcome');
+
