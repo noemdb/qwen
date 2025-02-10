@@ -1,6 +1,8 @@
 <?php
 
 // use App\Http\Livewire\ChatComponent;
+
+use App\Models\app\Interaction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +42,14 @@ Route::get('/prompts', function () {
 Route::get('/about', function () {
     return view('partials.about');
 })->name('about');
+
+Route::get('/db', function () {
+    $interaction = 
+        Interaction::create([
+            'user_id' => null,
+            'prompt' => "promptTest",
+            'response' => 'responseTest',
+        ]); //dd($interaction);
+})->name('db');
 
 

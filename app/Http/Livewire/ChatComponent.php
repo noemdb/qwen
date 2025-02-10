@@ -50,6 +50,13 @@ class ChatComponent extends Component
             'Siempre responde enmarcado en este contexto, sí existe una pregunta fuera de el, siempre responderás que no tienes competencias para responder adecuadamente.'            
             ],
         ];
+
+        // $interaction = 
+        // Interaction::create([
+        //     'user_id' => null,
+        //     'prompt' => "promptTest",
+        //     'response' => 'responseTest',
+        // ]); //dd($interaction);
     }
 
     // Extraer el contenido de un PDF
