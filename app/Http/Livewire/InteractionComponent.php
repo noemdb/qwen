@@ -14,6 +14,8 @@ class InteractionComponent extends Component
     public $sortDirection = 'desc'; // Dirección de ordenación (asc o desc)
     public $showModal = false; // Controla la visibilidad del modal
     public $selectedInteraction;
+    public $confirmingDeletion = false; // Controla la visibilidad del modal de confirmación
+
 
     public function render()
     {
@@ -63,5 +65,24 @@ class InteractionComponent extends Component
     {
         $this->showModal = false;
         $this->selectedInteraction = null;
+    }
+
+    public function confirmDeletion($interactionId)
+    {
+        $this->selectedInteraction = Interaction::find($interactionId);
+        $this->confirmingDeletion = true;
+    }
+
+    /**
+     * Eliminar la interacción seleccionada.
+     */
+    public function deleteInteraction()
+    {
+        if ($this->selectedInteraction) {
+            $this->selectedInteraction->delete();
+            $this->selectedInteraction = null;
+            $this->confirmingDeletion = false;
+            session()->flash('message', 'Interacción eliminada correctamente.');
+        }
     }
 }
