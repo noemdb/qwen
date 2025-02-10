@@ -44,12 +44,16 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/db', function () {
-    $interaction = 
-        Interaction::create([
-            'user_id' => null,
-            'prompt' => "promptTest",
-            'response' => 'responseTest',
-        ]); //dd($interaction);
+    dd('test');
+    // $interaction = 
+    //     Interaction::create([
+    //         'user_id' => null,
+    //         'prompt' => "promptTest",
+    //         'response' => 'responseTest',
+    //     ]); dd('test: ',$interaction);
 })->name('db');
 
-
+Route::get('/test', function () {
+    dd('test');
+    // return view('welcome');
+})->name('welcome');
