@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<x-dashboard-layout>
 
 @section('main')
     <div class="text-center">
@@ -10,4 +10,5 @@
         </div>       
 
     </div>
-@endsection
+
+</x-dashboard-layout>
