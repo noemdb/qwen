@@ -77,13 +77,12 @@
                                 
                             </button>
 
-                            <button 
+                            {{-- <button 
                                 wire:click="confirmDeletion({{ $interaction->id }})" 
                                 class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
                             >
-                                {{-- Eliminar --}}
                                 <i class="fa fa-trash"></i>
-                            </button>
+                            </button> --}}
                         </td>
                     </tr>
                 @empty
