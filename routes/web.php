@@ -16,38 +16,65 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/list', function () {
-    // return view('welcome');
-    return view('list');
-})->name('list');
+require __DIR__.'/auth.php';
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('welcome');
+// Route::middleware(['auth'])->group(function () {
 
-Route::get('/chat', function () {
-    return view('chat');
-})->name('chat');
+    Route::get('/list', function () {
+        return view('list');
+    })->name('list');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+    Route::get('/prompts', function () {
+        return view('partials.prompts');
+    })->name('prompts');
+    
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('welcome');
 
-Route::get('/prompts', function () {
-    return view('partials.prompts');
-})->name('prompts');
+    Route::get('/chat', function () {
+        return view('chat');
+    })->name('chat');
 
-Route::get('/about', function () {
-    return view('partials.about');
-})->name('about');
+    Route::get('/messenger', function () {
+        return view('messenger');
+    })->name('messenger');
 
-Route::get('/db', function () {
-    $interaction = 
-        Interaction::create([
-            'user_id' => null,
-            'prompt' => "promptTest",
-            'response' => 'responseTest',
-        ]); dd('test: ',$interaction);
-})->name('db');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/about', function () {
+        return view('partials.about');
+    })->name('about');
+
+    
+    
+    
+    
+    // Route::get('/chat', function () {
+    //     return view('chat');
+    // })->name('chat');
+    
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+    
+    
+    
+    
+    
+    // Route::get('/db', function () {
+    //     $interaction = 
+    //         Interaction::create([
+    //             'user_id' => null,
+    //             'prompt' => "promptTest",
+    //             'response' => 'responseTest',
+    //         ]); dd('test: ',$interaction);
+    // })->name('db');
+
+// });
+
+
 
 

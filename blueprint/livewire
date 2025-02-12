@@ -1,1 +1,4 @@
 php artisan make:livewire InteractionComponent
+
+
+php artisan make:livewire MessengerComponent

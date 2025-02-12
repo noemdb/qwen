@@ -1,59 +1,34 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    <title>{{ config('app.name', 'Qwen Chat App') }}</title>
+        <!-- Scripts -->
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    </head>
+    <body class="font-sans antialiased">
+        <div class="min-h-screen bg-gray-100">
 
-    <!-- Tailwind CSS -->
-    <link href="{{ asset('vendor/fontawesome/css/all.min.css') }}" rel="stylesheet">
+            {{-- @include('layouts.navigation') --}}
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+            <!-- Page Heading -->
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
 
-    <!-- Livewire Styles -->
-    @livewireStyles
-
-</head>
-<body class="bg-gray-100 font-sans antialiased">
-    
-    <div class="min-h-screen flex flex-col">
-        <!-- Encabezado -->
-        <header class="bg-gray-800 text-white shadow-md">
-            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                <h1 class="text-xl font-bold">
-                    <a href="{{ route('welcome') }}" class="">QChat App. CMSF</a>                    
-
-                </h1>
-                <nav>
-                    <a href="{{ route('chat') }}" class="text-white hover:text-blue-200 transition duration-300">Chat</a>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Contenido Principal -->
-        <main class="flex-grow w-full">
-            @yield('main') <!-- Aquí se inyectará el contenido de las vistas secundarias -->
-        </main>
-
-        <!-- Pie de Página -->
-        <footer class="bg-gray-800 text-white text-center py-4">
-            <p>&copy; {{ date('Y') }} QChat App. Contraloría Municipal de San Felipe. [@noemdb]</p>
-        </footer>
-    </div>
-
-    <script src="{{ asset('js/app.js') }}"></script>
-
-    <!-- Alpine.js (opcional) -->
-    <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script>
-
-    <!-- Livewire Scripts -->
-    @livewireScripts    
-
-    @yield('customScript')
-    
-</body>
+            <!-- Page Content -->
+            <main>
+                {{ $slot }}
+            </main>
+        </div>
+    </body>
 </html>

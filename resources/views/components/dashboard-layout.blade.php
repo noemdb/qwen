@@ -19,8 +19,9 @@
                 <h1 class="text-2xl font-bold text-gray-200">AI QwenChat</h1>
             </div>
             <nav class="mt-4">
-                <a href="{{route('dashboard')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">QChat</a>
+                <a href="{{route('chat')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">QChat</a>
                 <a href="{{route('prompts')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Prompts</a>
+                <a href="{{route('messenger')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Mensajero LAN</a>
                 <a href="{{route('about')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Acerca de ..</a>
             </nav>
         </div>

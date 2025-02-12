@@ -1,31 +1,17 @@
-@extends('layouts.app')
-
-@section('main')
+<x-dashboard-layout>
 
     <div class="text-center">
+        <h4 class="text-3xl font-bold text-gray-800 mb-2">QChat App</h4>
+        {{-- <p class="text-gray-600 mb-6">Bienvenido a QChat App.</p> --}}
         
-        <h1 class="text-2xl font-bold text-gray-800 mb-1 text-center">Bienvenido a QChat App</h1>
-
-        <div class="flex">
-
-            <div class="flex-none w-1/4">
-
-                @include('livewire.partials.info')
-
-            </div>
-
-            <div class="grow px-1">
-
-                <livewire:chat-component />
-
-                <div class="pt-2 border-top">
-                    @include('livewire.partials.prompts')
-                </div>                
-
-            </div>
-            
-        </div>
+        <div class="p-1">
+            <livewire:chat-component />
+        </div> 
+        
+        {{-- <div class="pt-2 border-top">
+            @include('livewire.partials.prompts')
+        </div> --}}
 
     </div>
 
-@endsection
+</x-dashboard-layout>
