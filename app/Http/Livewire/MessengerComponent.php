@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\MensajeEnviado;
 use App\Events\MessageSent;
 use Livewire\Component;
 use App\Models\Message;
@@ -11,51 +12,56 @@ class MessengerComponent extends Component
 {
     public $messageText = '';
     public $messages;
+    public $receiverMessages;
     public $recipients = []; // Lista de usuarios disponibles
     public $selectedRecipient; // ID del destinatario seleccionado
     public $lastMessages = []; // Últimos mensajes por destinatario
     public $oldMessages = [];
     public $todayMessages = [];
+    public $lastMessageCount;
+
+    // protected $listeners = ['messageReceived' => 'refreshMessages'];
+
+    protected $listeners = ['messageSent' => 'addMessage'];
 
     public function mount()
     {
+        $this->lastMessageCount = 0;
+        $this->messages = collect();
+        $this->receiverMessages = collect();
+
         // Cargar mensajes iniciales si hay un destinatario seleccionado
         if ($this->selectedRecipient) {
             $this->loadMessages();
+            $this->lastMessageCount = $this->messages->count();
         }
 
         // Cargar lista de usuarios disponibles como destinatarios
         $this->recipients = User::where('id', '!=', auth()->id())->pluck('name', 'id')->toArray();
 
-        // Cargar los últimos mensajes con cada destinatario
         $this->loadLastMessages();
+        $this->loadReceiverMessages();
     }
 
     public function loadLastMessages()
     {
-        // Obtener el último mensaje enviado o recibido con cada destinatario
-        $this->lastMessages = Message::whereIn('receiver_id', array_keys($this->recipients))
-            ->orWhereIn('sender_id', array_keys($this->recipients))
-            ->where(function ($query) {
-                $query->where('sender_id', auth()->id())
-                      ->orWhere('receiver_id', auth()->id());
-            })
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->groupBy(function ($message) {
-                // Agrupar por el ID del destinatario (el otro participante en la conversación)
-                return $message->sender_id === auth()->id() ? $message->receiver_id : $message->sender_id;
-            })
-            ->map(function ($group) {
-                // Tomar el primer mensaje de cada grupo (el más reciente)
-                return $group->first();
-            });
+        $this->lastMessages = Message::getLastMessagesBySender(auth()->id()); //dd($this->lastMessages);
     }
 
     public function selectRecipient($id)
     {
-        $this->selectedRecipient = $id;
-        $this->loadMessages();
+        if ($id) {
+            $this->selectedRecipient = $id;
+            $this->loadMessages();
+            $this->lastMessageCount = $this->receiverMessages->count();
+        }
+    }
+
+    public function loadReceiverMessages()
+    {
+        $this->receiverMessages = Message::where('receiver_id', auth()->id())
+            ->orderBy('created_at', 'asc')
+            ->get();
     }
 
     public function loadMessages()
@@ -79,7 +85,11 @@ class MessengerComponent extends Component
 
         $this->oldMessages = $this->messages->filter(function ($message) {
             return !$message->created_at->isToday();
-        });
+        });   
+        
+        $this->loadReceiverMessages();
+
+        $this->loadLastMessages();
     }
 
     public function sendMessage()
@@ -97,21 +107,35 @@ class MessengerComponent extends Component
             'receiver_id' => $this->selectedRecipient,
         ]);
 
-        // Obtén el socket_id del request (si lo estás enviando desde el frontend)
-        $socketId = request()->input('socket_id');
+        // Emitir el evento
+        $user = auth()->user();
+        event(new MessageSent($user, $this->messageText));
 
-        broadcast(new MessageSent($message))->toOthers();
+        $this->messageText = null;
 
-        // Limpiar el campo de texto
-        $this->messageText = '';
-
-        // Recargar mensajes y últimos mensajes
+        $this->resetErrorBag();
+        $this->resetValidation();
         $this->loadMessages();
-        $this->loadLastMessages();
     }
 
     public function render()
     {
+        $currentMessageCount = $this->receiverMessages->count(); //dd($currentMessageCount ,$this->lastMessageCount );
+        if ($currentMessageCount > $this->lastMessageCount) {
+            $this->dispatchBrowserEvent('new-message-received');
+            $this->lastMessageCount = $currentMessageCount;
+            // $this->loadLastMessages();
+        }
+        $this->loadLastMessages();
+
         return view('livewire.messenger-component');
+    }    
+
+    public function refreshMessages()
+    {
+        if ($this->selectedRecipient) {
+            $this->loadMessages();
+        }
     }
+
 }

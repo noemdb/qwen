@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,15 +14,16 @@ class MessageSent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $user;
 
-    public function __construct(Message $message)
+    public function __construct($user, $message)
     {
+        $this->user = $user;
         $this->message = $message;
     }
 
     public function broadcastOn()
     {
-        // Canal privado para el chat entre usuarios
-        return new PresenceChannel('chat.' . $this->message->receiver_id);
+        return new Channel('chat');
     }
 }

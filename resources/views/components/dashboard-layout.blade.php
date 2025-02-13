@@ -16,13 +16,32 @@
         <!-- Sidebar -->
         <div :class="sidebarOpen ? 'block' : 'hidden'" class="w-64 bg-gray-200 shadow-md">
             <div class="p-4">
-                <h1 class="text-2xl font-bold text-gray-200">AI QwenChat</h1>
+                <h1 class="text-2xl font-bold text-gray-600">{{ Auth::user()->name }}</h1>
+                <span class="text-sm text-gray-400">{{ Auth::user()->email }}</span>
             </div>
             <nav class="mt-4">
+                {{-- <a href="#" class="border font-bold block py-2 px-4 text-gray-700 hover:bg-gray-200">{{ Auth::user()->name }}</a> --}}
                 <a href="{{route('chat')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">QChat</a>
                 <a href="{{route('prompts')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Prompts</a>
                 <a href="{{route('messenger')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Mensajero LAN</a>
                 <a href="{{route('about')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Acerca de ...</a>
+
+                {{-- <div class="flex justify-start p-1">
+                    <!-- Formulario para Cerrar Sesión -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button 
+                            type="submit" 
+                            class="block py-2 px-4 text-gray-700 hover:bg-gray-200"
+                        >
+                            Cerrar Sesión
+                        </button>
+                    </form>
+                </div> --}}
+
+                <livewire:logout-button />
+                {{-- @livewire('logout-button') --}}
+
             </nav>
         </div>
 
@@ -58,7 +77,10 @@
         </div>
     </div>
 
-    <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script>
+    <script defer src="{{ asset('js/app.js') }}"></script>
+
+    {{-- <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script> --}}
+    
     @livewireScripts
 
     <!-- customScript -->

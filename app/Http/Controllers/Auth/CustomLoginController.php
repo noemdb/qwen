@@ -35,18 +35,35 @@ class CustomLoginController extends Controller
 
         // Si falla la autenticación, mostrar un mensaje de error
         return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
+            'username' => 'Las credenciales no coinciden.',
         ]);
     }
 
-    /**
-     * Cerrar sesión.
-     */
+    // /**
+    //  * Cerrar sesión.
+    //  */
+    // public function logout(Request $request)
+    // {
+    //     dd('123');
+    //     Auth::logout();
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+    //     return redirect('/');
+    // }
+
     public function logout(Request $request)
     {
+        dd('123');
+        // Cerrar la sesión del usuario
         Auth::logout();
+
+        // Invalidar la sesión actual
         $request->session()->invalidate();
+
+        // Regenerar el token CSRF
         $request->session()->regenerateToken();
+
+        // Redirigir al usuario a la página de inicio o login
         return redirect('/');
     }
 }

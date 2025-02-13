@@ -7,12 +7,15 @@
     "require": {
         "php": "^7.3|^8.0",
         "beyondcode/laravel-websockets": "^2.0@beta",
+        "doctrine/dbal": "^3.9",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "2.0",
+        "predis/predis": "^2.3",
+        "pusher/pusher-php-server": "^7.2",
         "smalot/pdfparser": "^2.11",
         "symfony/mailer": "^5.4"
     },
