@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\MessageSent;
 use Livewire\Component;
 use App\Models\Message;
 use App\Models\User;
@@ -9,10 +10,12 @@ use App\Models\User;
 class MessengerComponent extends Component
 {
     public $messageText = '';
-    public $messages = [];
+    public $messages;
     public $recipients = []; // Lista de usuarios disponibles
     public $selectedRecipient; // ID del destinatario seleccionado
     public $lastMessages = []; // Últimos mensajes por destinatario
+    public $oldMessages = [];
+    public $todayMessages = [];
 
     public function mount()
     {
@@ -57,7 +60,7 @@ class MessengerComponent extends Component
 
     public function loadMessages()
     {
-        // Cargar mensajes entre el usuario autenticado y el destinatario seleccionado
+        // Cargar todos los mensajes entre el usuario autenticado y el destinatario seleccionado
         $this->messages = Message::where(function ($query) {
                 $query->where('sender_id', auth()->id())
                       ->where('receiver_id', $this->selectedRecipient);
@@ -68,6 +71,15 @@ class MessengerComponent extends Component
             })
             ->orderBy('created_at', 'asc')
             ->get();
+
+        // Separar mensajes en "antiguos" y "de hoy"
+        $this->todayMessages = $this->messages->filter(function ($message) {
+            return $message->created_at->isToday();
+        });
+
+        $this->oldMessages = $this->messages->filter(function ($message) {
+            return !$message->created_at->isToday();
+        });
     }
 
     public function sendMessage()
@@ -79,11 +91,16 @@ class MessengerComponent extends Component
         ]);
 
         // Guardar el mensaje en la base de datos
-        Message::create([
+        $message = Message::create([
             'body' => $this->messageText,
             'sender_id' => auth()->id(),
             'receiver_id' => $this->selectedRecipient,
         ]);
+
+        // Obtén el socket_id del request (si lo estás enviando desde el frontend)
+        $socketId = request()->input('socket_id');
+
+        broadcast(new MessageSent($message))->toOthers();
 
         // Limpiar el campo de texto
         $this->messageText = '';

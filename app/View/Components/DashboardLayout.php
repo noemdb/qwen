@@ -6,14 +6,17 @@ use Illuminate\View\Component;
 
 class DashboardLayout extends Component
 {
+    public $title;
+    public $customScript;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($title=null,$customScript=null)
     {
-        //
+        $this->title = $title;
+        $this->customScript = $customScript;
     }
 
     /**

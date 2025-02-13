@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
-// Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
 
     Route::get('/list', function () {
         return view('list');
@@ -73,7 +73,7 @@ require __DIR__.'/auth.php';
     //         ]); dd('test: ',$interaction);
     // })->name('db');
 
-// });
+});
 
 
 

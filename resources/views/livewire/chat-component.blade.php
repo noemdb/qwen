@@ -18,6 +18,7 @@
         @parent
         <script>
             document.addEventListener('livewire:load', function () {
+                console.log('livewire:load');
                 const chatBox = document.getElementById('chat-box');
         
                 // Función para desplazar al final

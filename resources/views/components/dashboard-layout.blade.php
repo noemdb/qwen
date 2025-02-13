@@ -22,7 +22,7 @@
                 <a href="{{route('chat')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">QChat</a>
                 <a href="{{route('prompts')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Prompts</a>
                 <a href="{{route('messenger')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Mensajero LAN</a>
-                <a href="{{route('about')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Acerca de ..</a>
+                <a href="{{route('about')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Acerca de ...</a>
             </nav>
         </div>
 
@@ -35,18 +35,22 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <h2 class="text-xl font-semibold text-gray-100">
+                <div>{{ $title ?? null }}</div>
+                <h2 class="text-xl font-semibold text-gray-400">
                     <a href="{{route('welcome')}}">                        
-                        QChat App CMSF v1.0
+                        QChat App CMSF v1.1
                         <i class="fa-regular fa-comment-dots p-1 m-1"></i>
                     </a>
                 </h2>
             </header>
 
-            <!-- Page Content -->
-            <main class="flex-1 overflow-y-auto p-1">
-                {{ $slot }}
+            <!-- Page Content layout -->
+            <main class="flex-1 overflow-y-auto">
+                <div class="w-full h-full">
+                    {{ $slot }}
+                </div>
             </main>
+
             <!-- Pie de Página -->
             <footer class="bg-gray-800 text-white text-center py-4">
                 <p>&copy; {{ date('Y') }} QChat App. Contraloría Municipal de San Felipe. [@noemdb]</p>
@@ -54,10 +58,11 @@
         </div>
     </div>
 
-    @yield('customScript')
-
     <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script>
     @livewireScripts
+
+    <!-- customScript -->
+    @yield('customScript')
 
 </body>
 

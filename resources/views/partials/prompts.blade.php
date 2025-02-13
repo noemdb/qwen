@@ -1,5 +1,10 @@
 <x-dashboard-layout>
 
+    <x-slot name="title">
+        <div class="text-3xl font-bold text-white">QChat Appp</div>
+        <span class="text-gray-200 m-0 p-0 text-sm">Bienvenido </span>
+    </x-slot>
+
     <div class="bg-white shadow rounded-lg relative h-full" x-data="{ showList: true }">
         <!-- Botón flotante para mostrar/ocultar la lista -->
         <button @click="showList = !showList" class="fixed bottom-4 right-4 bg-gray-200 text-gray-600 p-2 rounded-full shadow-lg hover:bg-gray-300 focus:outline-none">
