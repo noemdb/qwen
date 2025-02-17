@@ -18,7 +18,7 @@
         <!-- Sidebar -->
         <div :class="sidebarOpen ? 'block' : 'hidden'" class="w-64 bg-gray-200 shadow-md">
             <div class="p-4">
-                <h1 class="text-2xl font-bold text-gray-600">{{ Auth::user()->name }}</h1>
+                <h1 class="text-2xl font-bold text-gray-600">{{ Auth::user()->name ?? null}}</h1>
                 <span class="text-sm text-gray-400">{{ Auth::user()->email }}</span>
             </div>
             <nav class="mt-4">
