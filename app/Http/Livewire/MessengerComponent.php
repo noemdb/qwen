@@ -127,7 +127,7 @@ class MessengerComponent extends Component
         // Emitir el evento con el remitente y el mensaje completo
         $receiver = User::find($this->selectedRecipient);
         $this->receiverId = $receiver->id;
-        $user = auth()->id();
+        $user = auth()->id(); //dd($user);
         broadcast(new MessageSent($user, $message))->toOthers();
 
         // Limpiar campos y recargar mensajes
