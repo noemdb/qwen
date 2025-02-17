@@ -19,7 +19,7 @@
         <div :class="sidebarOpen ? 'block' : 'hidden'" class="w-64 bg-gray-200 shadow-md">
             <div class="p-4">
                 <h1 class="text-2xl font-bold text-gray-600">{{ Auth::user()->name ?? null}}</h1>
-                <span class="text-sm text-gray-400">{{ Auth::user()->email }}</span>
+                <span class="text-sm text-gray-400">{{ Auth::user()->email ?? null}}</span>
             </div>
             <nav class="mt-4">
                 {{-- <a href="#" class="border font-bold block py-2 px-4 text-gray-700 hover:bg-gray-200">{{ Auth::user()->name }}</a> --}}
