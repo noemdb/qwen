@@ -16,6 +16,7 @@
         "livewire/livewire": "2.0",
         "predis/predis": "^2.3",
         "pusher/pusher-php-server": "^7.2",
+        "rap2hpoutre/laravel-log-viewer": "^2.4",
         "smalot/pdfparser": "^2.11",
         "symfony/mailer": "^5.4"
     },

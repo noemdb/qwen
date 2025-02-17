@@ -19,7 +19,7 @@ class MessengerComponent extends Component
     public $lastMessages = []; // Últimos mensajes por destinatario
     public $oldMessages = [];
     public $todayMessages = [];
-    public $userId,$receiverId;
+    public $userId='all',$receiverId;
     public $lastMessageCount;
 
     // protected $listeners = ['messageReceived' => 'refreshMessages'];
@@ -127,8 +127,11 @@ class MessengerComponent extends Component
         // Emitir el evento con el remitente y el mensaje completo
         $receiver = User::find($this->selectedRecipient);
         $this->receiverId = $receiver->id;
-        $user = auth()->id(); //dd($user);
-        broadcast(new MessageSent($user, $message))->toOthers();
+        $userId = auth()->id(); //dd($user);
+        // broadcast(new MessageSent($userId, $message))->toOthers();
+
+        // Emite el evento
+        broadcast(new MessageSent($userId, $message))->toOthers();
 
         // Limpiar campos y recargar mensajes
         $this->messageText = null;

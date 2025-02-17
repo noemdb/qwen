@@ -40,8 +40,12 @@ window.Echo = new Echo({
     forceTLS: false,
     disableStats: true,
     auth: {
+        // headers: {
+        //     Authorization: 'Bearer ' + localStorage.getItem('token')
+        // }
+
         headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-        }
+            'X-CSRF-TOKEN': window.csrfToken,
+        },
     }
 });

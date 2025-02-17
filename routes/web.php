@@ -3,6 +3,7 @@
 // use App\Http\Livewire\ChatComponent;
 
 use App\Models\app\Interaction;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 require __DIR__.'/auth.php';
 

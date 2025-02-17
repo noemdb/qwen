@@ -8,6 +8,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Message;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Support\Facades\Log;
 
 class MessageSent implements ShouldBroadcast
 {
@@ -16,10 +17,15 @@ class MessageSent implements ShouldBroadcast
     public $message;
     public $userId;
 
-    public function __construct($message, $userId)
+    public function __construct($userId, $message)
     {
         $this->message = $message;
         $this->userId = $userId;
+
+        Log::info('Evento MessageSent emitido', [
+            'user' => $this->userId,
+            'message' => $message,
+        ]);
     }
 
     public function broadcastOn()
@@ -33,5 +39,10 @@ class MessageSent implements ShouldBroadcast
             'message' => $this->message,
             'from' => $this->userId,
         ];
+    }
+
+    public function broadcastAs()
+    {
+        return 'MessageSent';
     }
 }
