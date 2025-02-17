@@ -10,6 +10,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     
     @livewireStyles
+    
+    {{-- <script defer src="{{ asset('js/app.js') }}"></script> --}}
 </head>
 <body class="bg-gray-100" x-data="{ sidebarOpen: false }">
     <div class="flex h-screen">
@@ -26,21 +28,7 @@
                 <a href="{{route('messenger')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Mensajero LAN</a>
                 <a href="{{route('about')}}" class="block py-2 px-4 text-gray-700 hover:bg-gray-200">Acerca de ...</a>
 
-                {{-- <div class="flex justify-start p-1">
-                    <!-- Formulario para Cerrar Sesión -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button 
-                            type="submit" 
-                            class="block py-2 px-4 text-gray-700 hover:bg-gray-200"
-                        >
-                            Cerrar Sesión
-                        </button>
-                    </form>
-                </div> --}}
-
                 <livewire:logout-button />
-                {{-- @livewire('logout-button') --}}
 
             </nav>
         </div>
@@ -77,14 +65,26 @@
         </div>
     </div>
 
-    <script defer src="{{ asset('js/app.js') }}"></script>
+
+    <script src="{{ mix('js/app.js') }}"></script>
+
+    
+
+    {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
+
+    
 
     {{-- <script defer src="{{ asset('vendor/alpine/cdn.min.js') }}"></script> --}}
+    
+    {{-- <script defer src="{{ asset('js/app.js') }}"></script> --}}
     
     @livewireScripts
 
     <!-- customScript -->
     @yield('customScript')
+
+    <!-- websockets -->
+    @yield('websockets')
 
 </body>
 

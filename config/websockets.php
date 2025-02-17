@@ -26,6 +26,7 @@ return [
 
     ],
 
+
     'managers' => [
 
         /*
@@ -65,21 +66,18 @@ return [
         [
             'id' => env('PUSHER_APP_ID'),
             'name' => env('APP_NAME'),
-            'host' => env('PUSHER_APP_HOST'),
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
-            'path' => env('PUSHER_APP_PATH'),
+            'path' => env('PUSHER_APP_PATH', null), // Usa el valor de .env o null
             'capacity' => null,
-            'enable_client_messages' => false,
+            'enable_client_messages' => true,
             'enable_statistics' => true,
-            'allowed_origins' => [
-                // env('LARAVEL_WEBSOCKETS_DOMAIN'),
-                // 'http://localhost:4040', // Reemplaza con tu frontend
-                env('APP_URL','http://localhost'),
-            ],
         ],
     ],
 
+    'allowed_origins' => [
+        env('APP_URL','http://localhost'),
+    ],
     /*
     |--------------------------------------------------------------------------
     | Broadcasting Replication PubSub

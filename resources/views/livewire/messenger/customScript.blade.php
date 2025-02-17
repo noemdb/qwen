@@ -37,24 +37,4 @@
     });
 </script>
 
-    <script>
-        // window.Echo.join(`chat.${selectedRecipient}`)
-        //     .listen('MessageSent', (e) => {
-        //         this.messages.push(e.message);
-        // });
-
-        // window.Echo.connector.pusher.connection.bind('connected', () => {
-        //     const socketId = window.Echo.socketId();
-        //     console.log('Socket ID:', socketId);
-
-        //     // Envía el socket_id al backend (por ejemplo, mediante una solicitud AJAX o Livewire)
-        // });
-
-        // Echo.channel('chat')
-        // .listen('MessageSent', (e) => {
-        //     Livewire.emit('messageSent', { user: e.user, message: e.message });
-        // });
-
-    </script>
-
 @endsection

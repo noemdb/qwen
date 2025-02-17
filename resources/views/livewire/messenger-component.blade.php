@@ -35,6 +35,8 @@
 
     </div>
 
-    @include('livewire.messenger.customScript')   
+    @include('livewire.messenger.customScript') 
+      
+    @include('livewire.messenger.websockets')   
 
 </div>

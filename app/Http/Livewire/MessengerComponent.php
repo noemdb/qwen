@@ -7,6 +7,7 @@ use App\Events\MessageSent;
 use Livewire\Component;
 use App\Models\Message;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class MessengerComponent extends Component
 {
@@ -18,11 +19,27 @@ class MessengerComponent extends Component
     public $lastMessages = []; // Últimos mensajes por destinatario
     public $oldMessages = [];
     public $todayMessages = [];
+    public $userId,$receiverId;
     public $lastMessageCount;
 
     // protected $listeners = ['messageReceived' => 'refreshMessages'];
 
-    protected $listeners = ['messageSent' => 'addMessage'];
+    // protected $listeners = ['messageSent' => 'addMessage'];
+
+    public function getListeners()
+    {
+        return [
+            "echo-private:chat.{$this->userId},messageSent" => 'notifyNewMessege',
+        ];
+    }
+
+    public function notifyNewMessege()
+    {
+        if ($this->selectedRecipient) {
+            $this->loadMessages();
+            $this->lastMessageCount = $this->messages->count();
+        }
+    }
 
     public function mount()
     {
@@ -107,12 +124,14 @@ class MessengerComponent extends Component
             'receiver_id' => $this->selectedRecipient,
         ]);
 
-        // Emitir el evento
-        $user = auth()->user();
-        event(new MessageSent($user, $this->messageText));
+        // Emitir el evento con el remitente y el mensaje completo
+        $receiver = User::find($this->selectedRecipient);
+        $this->receiverId = $receiver->id;
+        $user = auth()->id();
+        broadcast(new MessageSent($user, $message))->toOthers();
 
+        // Limpiar campos y recargar mensajes
         $this->messageText = null;
-
         $this->resetErrorBag();
         $this->resetValidation();
         $this->loadMessages();
