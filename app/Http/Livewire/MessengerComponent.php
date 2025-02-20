@@ -15,11 +15,10 @@ class MessengerComponent extends Component
     public $messages;
     public $receiverMessages;
     public $recipients = []; // Lista de usuarios disponibles
-    public $selectedRecipient; // ID del destinatario seleccionado
     public $lastMessages = []; // Últimos mensajes por destinatario
     public $oldMessages = [];
     public $todayMessages = [];
-    public $userId=null,$receiverId;
+    public $userId=null,$receiverId=null;
     public $lastMessageCount;
 
     // protected $listeners = ['messageReceived' => 'refreshMessages'];
@@ -35,7 +34,7 @@ class MessengerComponent extends Component
 
     public function notifyNewMessege()
     {
-        if ($this->selectedRecipient) {
+        if ($this->receiverId) {
             $this->loadMessages();
             $this->lastMessageCount = $this->messages->count();
         }
@@ -43,15 +42,13 @@ class MessengerComponent extends Component
 
     public function mount()
     {
-
-        // $user = User::find(auth()->id())->first(); dd($user->createToken('AuthToken')->plainTextToken);
-        
+        $this->userId = auth()->id();
         $this->lastMessageCount = 0;
         $this->messages = collect();
         $this->receiverMessages = collect();
 
         // Cargar mensajes iniciales si hay un destinatario seleccionado
-        if ($this->selectedRecipient) {
+        if ($this->receiverId) {
             $this->loadMessages();
             $this->lastMessageCount = $this->messages->count();
         }
@@ -70,10 +67,13 @@ class MessengerComponent extends Component
 
     public function selectRecipient($id)
     {
-        if ($id) {
-            $this->selectedRecipient = $id;
+        $receiver = User::findOrFail($id);
+        if ($receiver) {
+            $this->receiverId = $receiver->id;
             $this->loadMessages();
             $this->lastMessageCount = $this->receiverMessages->count();
+            $channel = Message::getNameChannel($this->userId,$this->receiverId);
+            $this->emit('suscribeChannel', $channel);
         }
     }
 
@@ -89,10 +89,10 @@ class MessengerComponent extends Component
         // Cargar todos los mensajes entre el usuario autenticado y el destinatario seleccionado
         $this->messages = Message::where(function ($query) {
                 $query->where('sender_id', auth()->id())
-                      ->where('receiver_id', $this->selectedRecipient);
+                      ->where('receiver_id', $this->receiverId);
             })
             ->orWhere(function ($query) {
-                $query->where('sender_id', $this->selectedRecipient)
+                $query->where('sender_id', $this->receiverId)
                       ->where('receiver_id', auth()->id());
             })
             ->orderBy('created_at', 'asc')
@@ -117,30 +117,30 @@ class MessengerComponent extends Component
         // Validar el mensaje y el destinatario
         $this->validate([
             'messageText' => 'required|string|max:255',
-            'selectedRecipient' => 'required|exists:users,id',
+            'receiverId' => 'required|exists:users,id',
         ]);
 
         // Guardar el mensaje en la base de datos
         $message = Message::create([
             'body' => $this->messageText,
             'sender_id' => auth()->id(),
-            'receiver_id' => $this->selectedRecipient,
+            'receiver_id' => $this->receiverId,
         ]);
 
         // Emitir el evento con el remitente y el mensaje completo
-        $receiver = User::find($this->selectedRecipient);
+        $receiver = User::find($this->receiverId);
         $this->receiverId = $receiver->id;
         $userId = auth()->id(); //dd($user);
-        // broadcast(new MessageSent($userId, $message))->toOthers();
+        $receiverId = $receiver->id; //dd($user);
 
         // Emite el evento
-        broadcast(new MessageSent($userId, $message))->toOthers();
+        broadcast(new MessageSent($userId,$receiverId, $message))->toOthers();
 
         // Limpiar campos y recargar mensajes
         $this->messageText = null;
         $this->resetErrorBag();
         $this->resetValidation();
-        $this->loadMessages();
+        $this->loadMessages();        
     }
 
     public function render()
@@ -158,7 +158,7 @@ class MessengerComponent extends Component
 
     public function refreshMessages()
     {
-        if ($this->selectedRecipient) {
+        if ($this->receiverId) {
             $this->loadMessages();
         }
     }

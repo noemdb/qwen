@@ -22,17 +22,17 @@ use Illuminate\Support\Facades\Broadcast;
 //     return (int) $user->id === (int) $id;
 // });
 
-// Broadcast::channel('private-chat.{userId}', function ($user, $userId) {
-//     // Solo permite acceso si el ID del usuario coincide con el ID del canal
+// // Broadcast::channel('private-chat.{userId}', function ($user, $userId) {
+// //     // Solo permite acceso si el ID del usuario coincide con el ID del canal
+// //     return (int) $user->id === (int) $userId;
+// // });
+
+
+// Broadcast::routes(['middleware' => ['auth:sanctum']]);
+// // Broadcast::routes(['middleware' => ['auth']]);
+// // Broadcast::routes(['middleware' => ['broadcast.auth']]);
+
+// Broadcast::channel('chat.{userId}', function ($user, $userId) {
+//     // Lógica de autorización para canales privados
 //     return (int) $user->id === (int) $userId;
 // });
-
-
-Broadcast::routes(['middleware' => ['auth:sanctum']]);
-// Broadcast::routes(['middleware' => ['auth']]);
-// Broadcast::routes(['middleware' => ['broadcast.auth']]);
-
-Broadcast::channel('private-chat.{userId}', function ($user, $userId) {
-    // Solo permite acceso si el ID del usuario coincide con el ID del canal
-    return (int) $user->id === (int) $userId;
-});

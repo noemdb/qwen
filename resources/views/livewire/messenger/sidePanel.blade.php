@@ -5,10 +5,10 @@
 
     @foreach ($recipients as $id => $name)
     <li wire:click="selectRecipient({{ $id }})"
-        class="p-1 text-left border rounded-lg cursor-pointer hover:bg-gray-100 {{ $selectedRecipient == $id ? 'bg-blue-200' : '' }}"><div class="hide bg-blue-200"></div>
+        class="p-1 text-left border rounded-lg cursor-pointer hover:bg-gray-100 {{ $receiverId == $id ? 'bg-blue-200' : '' }}"><div class="hide bg-blue-200"></div>
 
         <div class="flex items-center space-x-2">
-            <div class="w-5 h-5 bg-gray-300 rounded-full {{ $selectedRecipient == $id ? 'bg-blue-400' : '' }}"></div><div class="hide bg-blue-400"></div>
+            <div class="w-5 h-5 bg-gray-300 rounded-full {{ $receiverId == $id ? 'bg-blue-400' : '' }}"></div><div class="hide bg-blue-400"></div>
             <div class="flex-1">
                 <p class="text-sm font-medium text-gray-800">{{ $name }}</p>
                 <p class="text-xs text-gray-500">

@@ -68,4 +68,10 @@ class Message extends Model
 
         return $lastMessages; // Devuelve el resultado como array
     }
+
+    public static function getNameChannel($num1, $num2) {
+        $numeroMenor = min($num1, $num2);
+        $numeroMayor = max($num1, $num2);    
+        return "chat.s:{$numeroMenor}r:{$numeroMayor}";
+    }
 }
