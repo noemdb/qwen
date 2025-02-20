@@ -73,7 +73,7 @@ class MessengerComponent extends Component
             $this->loadMessages();
             $this->lastMessageCount = $this->receiverMessages->count();
             $channel = Message::getNameChannel($this->userId,$this->receiverId);
-            $this->emit('suscribeChannel', $channel);
+            $this->emit('suscribeChannel', $this->receiverId);
         }
     }
 
