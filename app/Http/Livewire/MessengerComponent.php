@@ -19,19 +19,19 @@ class MessengerComponent extends Component
     public $lastMessages = []; // Últimos mensajes por destinatario
     public $oldMessages = [];
     public $todayMessages = [];
-    public $userId='all',$receiverId;
+    public $userId=null,$receiverId;
     public $lastMessageCount;
 
     // protected $listeners = ['messageReceived' => 'refreshMessages'];
 
     // protected $listeners = ['messageSent' => 'addMessage'];
 
-    public function getListeners()
-    {
-        return [
-            "echo-private:chat.{$this->userId},messageSent" => 'notifyNewMessege',
-        ];
-    }
+    // public function getListeners()
+    // {
+    //     return [
+    //         "echo-private:chat.{$this->userId},messageSent" => 'notifyNewMessege',
+    //     ];
+    // }
 
     public function notifyNewMessege()
     {
@@ -43,6 +43,9 @@ class MessengerComponent extends Component
 
     public function mount()
     {
+
+        // $user = User::find(auth()->id())->first(); dd($user->createToken('AuthToken')->plainTextToken);
+        
         $this->lastMessageCount = 0;
         $this->messages = collect();
         $this->receiverMessages = collect();

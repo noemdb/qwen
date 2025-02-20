@@ -53,7 +53,6 @@ class CustomLoginController extends Controller
 
     public function logout(Request $request)
     {
-        dd('123');
         // Cerrar la sesión del usuario
         Auth::logout();
 
