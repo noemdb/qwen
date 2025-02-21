@@ -62,14 +62,25 @@ return [
     |
     */
 
+    // 'apps' => [
+    //     [
+    //         'id' => env('PUSHER_APP_ID'),
+    //         'name' => env('APP_NAME'),
+    //         'key' => env('PUSHER_APP_KEY'),
+    //         'secret' => env('PUSHER_APP_SECRET'),
+    //         'path' => env('PUSHER_APP_PATH', null), // Usa el valor de .env o null
+    //         'capacity' => null,
+    //         'enable_client_messages' => true,
+    //         'enable_statistics' => true,
+    //     ],
+    // ],
+
     'apps' => [
         [
-            'id' => env('PUSHER_APP_ID'),
-            'name' => env('APP_NAME'),
-            'key' => env('PUSHER_APP_KEY'),
-            'secret' => env('PUSHER_APP_SECRET'),
-            'path' => env('PUSHER_APP_PATH', null), // Usa el valor de .env o null
-            'capacity' => null,
+            'id' => env('PUSHER_APP_ID', 'local'),
+            'name' => env('APP_NAME', 'Laravel'),
+            'key' => env('PUSHER_APP_KEY', 'local'),
+            'secret' => env('PUSHER_APP_SECRET', 'local'),
             'enable_client_messages' => true,
             'enable_statistics' => true,
         ],

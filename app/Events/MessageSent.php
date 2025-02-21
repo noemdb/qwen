@@ -6,9 +6,8 @@ namespace App\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Message;
+// use BeyondCode\LaravelWebSockets\Channels\Channel;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Support\Facades\Log;
 
 class MessageSent implements ShouldBroadcast
@@ -17,24 +16,24 @@ class MessageSent implements ShouldBroadcast
 
     public $message;
     public $userId;
-    public $receiverId;
+    public $channel;
 
-    public function __construct($userId,$receiverId, $message)
+    public function __construct($userId, $message)
     {
         $this->message = $message;
         $this->userId = $userId;
-        $this->receiverId = $receiverId;
+        $this->channel = 'chat.' . $this->userId;
 
         Log::info('Evento MessageSent emitido', [
             'user' => $this->userId,
-            'receiver' => $this->receiverId,
-            'message' => $message,
+            'message' => $this->message,
+            'channel' => $this->channel,
         ]);
     }
 
     public function broadcastOn()
     {
-        return new Channel('chat.s' . $this->userId.'r:'.$this->receiverId);
+        return new Channel($this->channel);
     }
 
     public function broadcastWith()
@@ -42,11 +41,12 @@ class MessageSent implements ShouldBroadcast
         return [
             'message' => $this->message,
             'from' => $this->userId,
+            'channel' => $this->channel,
         ];
     }
 
     public function broadcastAs()
     {
-        return 'MessageSent';
+        return 'message.sent';
     }
 }

@@ -18,26 +18,21 @@ class MessengerComponent extends Component
     public $lastMessages = []; // Últimos mensajes por destinatario
     public $oldMessages = [];
     public $todayMessages = [];
-    public $userId=null,$receiverId=null;
-    public $lastMessageCount;
+    public $userId = null, $receiverId = null;
+    public $lastMessageCount,$showNewMessageSentNotification;
 
-    // protected $listeners = ['messageReceived' => 'refreshMessages'];
-
-    // protected $listeners = ['messageSent' => 'addMessage'];
-
-    // public function getListeners()
-    // {
-    //     return [
-    //         "echo-private:chat.{$this->userId},messageSent" => 'notifyNewMessege',
-    //     ];
-    // }
+    public function getListeners()
+    {
+        return [
+            "echo:chat.{$this->userId},MessageSent" => 'notifyNewMessege',
+        ];
+    }
 
     public function notifyNewMessege()
     {
-        if ($this->receiverId) {
-            $this->loadMessages();
-            $this->lastMessageCount = $this->messages->count();
-        }
+        $this->showNewMessageSentNotification = true;
+        $this->loadMessages();
+        $this->lastMessageCount = $this->messages->count();
     }
 
     public function mount()
@@ -46,12 +41,6 @@ class MessengerComponent extends Component
         $this->lastMessageCount = 0;
         $this->messages = collect();
         $this->receiverMessages = collect();
-
-        // Cargar mensajes iniciales si hay un destinatario seleccionado
-        if ($this->receiverId) {
-            $this->loadMessages();
-            $this->lastMessageCount = $this->messages->count();
-        }
 
         // Cargar lista de usuarios disponibles como destinatarios
         $this->recipients = User::where('id', '!=', auth()->id())->pluck('name', 'id')->toArray();
@@ -72,8 +61,8 @@ class MessengerComponent extends Component
             $this->receiverId = $receiver->id;
             $this->loadMessages();
             $this->lastMessageCount = $this->receiverMessages->count();
-            $channel = Message::getNameChannel($this->userId,$this->receiverId);
-            $this->emit('suscribeChannel', $this->receiverId);
+            // $channel = Message::getNameChannel($this->userId, $this->receiverId);
+            // $this->emit('suscribeChannel', $this->receiverId);
         }
     }
 
@@ -88,12 +77,12 @@ class MessengerComponent extends Component
     {
         // Cargar todos los mensajes entre el usuario autenticado y el destinatario seleccionado
         $this->messages = Message::where(function ($query) {
-                $query->where('sender_id', auth()->id())
-                      ->where('receiver_id', $this->receiverId);
-            })
+            $query->where('sender_id', auth()->id())
+                ->where('receiver_id', $this->receiverId);
+        })
             ->orWhere(function ($query) {
                 $query->where('sender_id', $this->receiverId)
-                      ->where('receiver_id', auth()->id());
+                    ->where('receiver_id', auth()->id());
             })
             ->orderBy('created_at', 'asc')
             ->get();
@@ -105,8 +94,8 @@ class MessengerComponent extends Component
 
         $this->oldMessages = $this->messages->filter(function ($message) {
             return !$message->created_at->isToday();
-        });   
-        
+        });
+
         $this->loadReceiverMessages();
 
         $this->loadLastMessages();
@@ -134,27 +123,22 @@ class MessengerComponent extends Component
         $receiverId = $receiver->id; //dd($user);
 
         // Emite el evento
-        broadcast(new MessageSent($userId,$receiverId, $message))->toOthers();
+        broadcast(new MessageSent($receiverId, $message))->toOthers();
 
         // Limpiar campos y recargar mensajes
         $this->messageText = null;
         $this->resetErrorBag();
         $this->resetValidation();
-        $this->loadMessages();        
+        $this->loadMessages();
+
+        $this->emit('sendMessageFromBackEnd', $message->body);
     }
 
     public function render()
     {
-        $currentMessageCount = $this->receiverMessages->count(); //dd($currentMessageCount ,$this->lastMessageCount );
-        if ($currentMessageCount > $this->lastMessageCount) {
-            $this->dispatchBrowserEvent('new-message-received');
-            $this->lastMessageCount = $currentMessageCount;
-            // $this->loadLastMessages();
-        }
         $this->loadLastMessages();
-
         return view('livewire.messenger-component');
-    }    
+    }
 
     public function refreshMessages()
     {
@@ -162,5 +146,4 @@ class MessengerComponent extends Component
             $this->loadMessages();
         }
     }
-
 }

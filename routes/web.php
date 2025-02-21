@@ -17,6 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/test-event', function () {
+    $message = \App\Models\Message::create([
+        'body' => 'Mensaje de prueba',
+        'sender_id' => 1,
+        'receiver_id' => 2,
+    ]);
+
+    broadcast(new \App\Events\MessageSent(1, $message));
+
+    return 'Evento emitido';
+});
+
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 require __DIR__.'/auth.php';
